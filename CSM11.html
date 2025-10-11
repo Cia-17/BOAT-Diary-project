@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Day In My Life Journal</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      background-color: #fdfdfd;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      text-align: center;
+      background: #004aad;
+      color: white;
+      padding: 2rem;
+      border-bottom: 5px solid #00aaff;
+    }
+
+    header h1 {
+      margin-bottom: 0.5rem;
+    }
+
+    section {
+      padding: 2rem 5%;
+    }
+
+    section h2 {
+      color: #004aad;
+      margin-bottom: 1rem;
+      border-left: 5px solid #00aaff;
+      padding-left: 10px;
+    }
+
+    ul {
+      list-style: disc;
+      margin-left: 2rem;
+    }
+
+    .panels {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .panel {
+      background: #eef5ff;
+      border-radius: 10px;
+      padding: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .panel img {
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 0.5rem;
+    }
+
+    .team-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .member {
+      background: #f0f7fa;
+      border-left: 5px solid #00aaff;
+      padding: 1rem;
+      border-radius: 8px;
+    }
+
+    footer {
+      text-align: center;
+      background: #004aad;
+      color: white;
+      padding: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    footer a {
+      color: #00ffcc;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>A Day In My Life Journal</h1>
+    <p>By Team 11 — Web Technologies (CS341_B)</p>
+  </header>
+
+  <section id="about">
+    <h2>About the Project</h2>
+    <p>
+      “A Day In My Life” Journal is a personal diary web application designed for individuals 
+      who want to document their daily experiences, emotions, and memories in a safe, digital space. 
+      The platform makes journaling convenient and creative, allowing users to track mood patterns 
+      and reflect on personal growth over time. It supports text, images, audio, and video entries 
+      and includes a motivational quote generator.
+    </p>
+  </section>
+
+  <section id="functions">
+    <h2>Key Functions</h2>
+    <ul>
+      <li><b>User Authentication:</b> Users can sign up, log in, and manage their profiles securely.</li>
+      <li><b>Daily Entry Management:</b> Create, edit, delete, and view daily entries with multimedia uploads.</li>
+      <li><b>Mood Tracking:</b> Visualize emotional trends with mood selectors and analytics.</li>
+      <li><b>Motivational Quotes:</b> Fetch inspirational messages from a database or API daily.</li>
+    </ul>
+  </section>
+
+  <section id="roles">
+    <h2>User Roles</h2>
+    <ul>
+      <li><b>Registered User:</b> Full access to entries, profile, and mood analytics.</li>
+      <li><b>Guest User:</b> Limited view of sample entries and quotes.</li>
+    </ul>
+  </section>
+
+  <section id="storyboard">
+    <h2>Storyboard Overview</h2>
+    <div class="panels">
+      <div class="panel">
+        <h3>1. Login/Register Page</h3>
+        <p>Users sign in or create accounts; motivational quote displayed.</p>
+        
+      <div class="panel">
+        <h3>2. Dashboard / Home</h3>
+        <p>Displays today’s mood selector, entry form, and previous entries.</p>
+       
+      </div>
+      <div class="panel">
+        <h3>3. Entry Creation Page</h3>
+        <p>User types journal, uploads media, and saves the entry.</p>
+        
+      </div>
+      <div class="panel">
+        <h3>4. Insights Page</h3>
+        <p>Shows user’s mood trends using charts or graphs.</p>
+        
+      </div>
+    </div>
+  </section>
+
+  <section id="team">
+    <h2>Team 11</h2>
+    <div class="team-container">
+      <div class="member">
+        <img src="/Users/leslietettey/Desktop/CMS_WEBSITE/WhatsApp Image 2025-10-10 at 21.04.08.jpeg" alt="Shepherd Adiko" style="width:160px; height:160px; object-fit:cover; border-radius:50%;">
+        <h3>Shepherd Adiko — Chairperson</h3>
+        <p>Hello World! I’m Shepherd, a CS major (Ashesi ’27) interested in IT and creative industries.</p>
+        <p><b>Email:</b> shepherd.adiko@aucampus.onmicrosoft.com</p>
+      </div>
+      <div class="member">
+        <img src="/Users/leslietettey/Desktop/CMS_WEBSITE/WhatsApp Image 2025-10-10 at 21.16.13.jpeg" alt="Lawrencia Kyei Baffour" style="width:160px; height:160px; object-fit:cover; border-radius:50%;">
+
+        <h3>Lawrencia Kyei Baffour — Steward</h3>
+        <p>CS student (Ashesi ’27) aspiring software developer inspired by her uncle.</p>
+        <p><b>Email:</b> lawrencia.baffour@aucampus.onmicrosoft.com</p>
+      </div>
+      <div class="member">
+        <img src="/Users/leslietettey/Desktop/CMS_WEBSITE/WhatsApp Image 2025-10-10 at 21.24.13.jpeg" alt="Leslie Tettey" style="width:160px; height:160px; object-fit:cover; border-radius:50%;">
+
+        <h3>Leslie Tettey — Secretary</h3>
+        <p>MIS major passionate about film, art, basketball, and transforming Africa.</p>
+        <p><b>Email:</b> leslie.tettey@ashesi.edu.gh</p>
+      </div>
+      <div class="member">
+        <img src="/Users/leslietettey/Desktop/CMS_WEBSITE/WhatsApp Image 2025-10-10 at 23.50.47.jpeg" alt="Donna Omaboe" style="width:160px; height:160px; object-fit:cover; border-radius:50%;">
+        <h3>Donna Omaboe — Scribe</h3>
+        <p>CS major who loves collage, mosaic, music, and art.</p>
+        <p><b>Email:</b> donna.omaboe@aucampus.onmicrosoft.com</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>GitHub Repo: <a href="https://github.com/Cia-17/BOAT-Diary-project" target="_blank">View Project</a></p>
+    <p> Team 11 — Ashesi University</p>
+  </footer>
+</body>
+</html>
