@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="800" viewBox="0 0 400 800">
+  <!-- Phone Frame -->
+  <rect width="400" height="800" rx="40" fill="#1A1A1A"/>
+  <rect x="10" y="10" width="380" height="780" rx="35" fill="white"/>
+  
+  <!-- Status Bar -->
+  <g transform="translate(40, 20)">
+    <text x="0" y="20" font-family="Arial" font-size="14" fill="#1A1A1A">9:41</text>
+    <g transform="translate(280, 0)">
+      <path d="M0,8 L3,8 L3,16 L21,16 L21,8 L24,8 L24,19 L0,19 Z" fill="#1A1A1A"/>
+      <rect x="2" y="9" width="20" height="9" fill="#1A1A1A"/>
+    </g>
+  </g>
+
+  <!-- App Header -->
+  <text x="40" y="80" font-family="Arial" font-weight="bold" font-size="24" fill="#1A1A1A">A Day In My Life</text>
+
+  <!-- Menu Grid -->
+  <g transform="translate(40, 120)">
+    <!-- Row 1 -->
+    <g>
+      <rect width="95" height="95" rx="20" fill="#FFB6C1"/>
+      <text x="47.5" y="55" text-anchor="middle" font-family="Arial" font-size="12" fill="white">Morning</text>
+    </g>
+    <g transform="translate(110, 0)">
+      <rect width="95" height="95" rx="20" fill="#B6E3FF"/>
+      <text x="47.5" y="55" text-anchor="middle" font-family="Arial" font-size="12" fill="white">Evening</text>
+    </g>
+    <g transform="translate(220, 0)">
+      <rect width="95" height="95" rx="20" fill="#FFD700"/>
+      <text x="47.5" y="55" text-anchor="middle" font-family="Arial" font-size="12" fill="white">Feelings</text>
+    </g>
+
+    <!-- Row 2 -->
+    <g transform="translate(0, 110)">
+      <rect width="95" height="95" rx="20" fill="#98FB98"/>
+      <text x="47.5" y="55" text-anchor="middle" font-family="Arial" font-size="12" fill="white">Goals</text>
+    </g>
+    <g transform="translate(110, 110)">
+      <rect width="95" height="95" rx="20" fill="#DDA0DD"/>
+      <text x="47.5" y="55" text-anchor="middle" font-family="Arial" font-size="12" fill="white">Dreams</text>
+    </g>
+    <g transform="translate(220, 110)">
+      <rect width="95" height="95" rx="20" fill="#F0E68C"/>
+      <text x="47.5" y="55" text-anchor="middle" font-family="Arial" font-size="12" fill="white">Memories</text>
+    </g>
+  </g>
+
+  <!-- Bottom Navigation -->
+  <rect x="40" y="700" width="320" height="60" rx="30" fill="#F8F8F8"/>
+  <g transform="translate(60, 720)">
+    <circle cx="10" cy="10" r="8" fill="#1A1A1A"/>
+    <circle cx="140" cy="10" r="8" fill="#1A1A1A"/>
+    <circle cx="270" cy="10" r="8" fill="#1A1A1A"/>
+  </g>
+</svg>

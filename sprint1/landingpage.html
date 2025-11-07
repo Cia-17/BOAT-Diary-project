@@ -1,14 +1,16 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>A Day In My Life — Landing</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Day In My Life — Digital Journal</title>
 
   <!-- Google fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <main class="page-wrap">
@@ -18,10 +20,10 @@
           <div class="logo">Marketeam</div>
         </div>
         <nav class="nav-links">
-          <a>About</a>
-          <a>Features</a>
-          <a>Pricing</a>
-          <button class="pill">Start Journaling</button>
+          <a href="#about">About</a>
+          <a href="#features">Features</a>
+          <a href="#pricing">Pricing</a>
+          <a href="login.php" class="pill">Start Journaling</a>
         </nav>
       </header>
 
@@ -32,6 +34,12 @@
             <span class="accent">My Life</span>
           </h1>
 
+          <div class="header-avatars">
+            <img src="images/avatar-1.png" alt="User avatar 1" class="avatar" />
+            <img src="images/avatar-2.png" alt="User avatar 2" class="avatar" />
+            <img src="images/avatar-3.png" alt="User avatar 3" class="avatar" />
+          </div>
+
           <p class="tagline">Your emotions. Your story. Your journey.</p>
 
           <p class="lead">
@@ -40,7 +48,6 @@
 
           <div class="cta-row">
             <button class="btn primary">Login / Register</button>
-            <button class="btn ghost">Browse as Guest</button>
           </div>
 
           <blockquote class="quote">
@@ -51,12 +58,10 @@
 
         <div class="right-col">
           <div class="phone-wrap">
-            <img src="images/phone-mockup.svg" alt="phone mockup" class="phone" />
+            <img src="images/Generated Image November 07, 2025 - 7_18PM.png" alt="phone mockup" class="phone" />
           </div>
 
-          <img src="images/avatar-1.png" alt="User avatar 1" class="avatar a1" />
-          <img src="images/avatar-2.png" alt="User avatar 2" class="avatar a2" />
-          <img src="images/avatar-3.png" alt="User avatar 3" class="avatar a3" />
+          <!-- avatars moved to page header/title -->
         </div>
       </section>
     </div>
