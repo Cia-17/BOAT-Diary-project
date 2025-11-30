@@ -377,7 +377,7 @@ export async function deleteEntry(entryId: number): Promise<void> {
 export async function getEntriesByDateRange(
   startDate: string,
   endDate: string
-): Promise<Entry[]> {
+): Promise<Array<{ entry_id: number; entry_date: string; mood?: { mood_color: string }[] }>> {
   const supabase = createClient();
   const { data, error } = await supabase
     .from("entries")
@@ -393,6 +393,6 @@ export async function getEntriesByDateRange(
     .eq("is_deleted", false);
 
   if (error) throw error;
-  return data || [];
+  return (data || []) as Array<{ entry_id: number; entry_date: string; mood?: { mood_color: string }[] }>;
 }
 

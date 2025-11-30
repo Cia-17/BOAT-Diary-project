@@ -39,10 +39,11 @@ export function VoiceRecorder({
       // Check if getUserMedia is available with better browser detection
       if (!navigator.mediaDevices) {
         // Fallback for older browsers
-        const getUserMedia = navigator.getUserMedia || 
-                            (navigator as any).webkitGetUserMedia || 
-                            (navigator as any).mozGetUserMedia || 
-                            (navigator as any).msGetUserMedia;
+        const nav = navigator as any;
+        const getUserMedia = nav.getUserMedia ||
+                            nav.webkitGetUserMedia ||
+                            nav.mozGetUserMedia ||
+                            nav.msGetUserMedia;
         
         if (!getUserMedia) {
           alert("Microphone access is not supported in this browser. Please use a modern browser like Chrome, Firefox, or Edge.");
