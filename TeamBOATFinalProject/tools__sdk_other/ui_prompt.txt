@@ -1,0 +1,24 @@
+Build a calendar dashboard screen that includes a monthly calendar view, highlighted dates, a section for recent events, and a bottom navigation bar. The layout should be clean, modern, rounded, and minimal, with soft colors and playful accents.
+
+Color variables:
+--bg: #FFFFFF
+--text-primary: #000000
+--text-secondary: #8A8A8A
+--accent-orange: #F4A261
+--accent-yellow: #F4D35E
+--accent-green: #B7E4C7
+--accent-pink: #F7C6CE
+--nav-inactive: #C7C7C7
+--event-pink: #FFE7EF
+--event-yellow: #FFF7D1
+
+Layout and components:
+- Header with back arrow (left) and title "Calendar" centered.
+- Month name with prev/next arrows.
+- Weekday header: M T W T F S S.
+- Calendar grid with date cells; highlighted dates show pastel pill backgrounds; selected date uses --accent-pink.
+- Recent section labeled "Recent" with two stacked event cards: left small date, middle title, right avatar (Unsplash illustration image).
+- Bottom fixed nav with Home, Calendar (active), Add, Settings. Active icon inside rounded square with --accent-yellow background.
+
+Deliverable note:
+Convert this into plain HTML/CSS/JS (no framework). Keep JS minimal: month rendering, month switching, sample highlighted dates array, and AJAX/fetch for recent events (endpoint: /api/recent-events). Ensure CSS variables and spacing (16-20px). Use Unsplash URLs for dummy avatars.
