@@ -33,25 +33,129 @@ export function VoiceRecorder({
   }, []);
 
   const startRecording = async () => {
+    let mimeType = 'audio/webm'; // Default blob type
+    
     try {
-      // Check if getUserMedia is available
-      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        alert("Microphone access is not supported in this browser. Please use a modern browser like Chrome, Firefox, or Edge.");
+      // Check if getUserMedia is available with better browser detection
+      if (!navigator.mediaDevices) {
+        // Fallback for older browsers
+        const getUserMedia = navigator.getUserMedia || 
+                            (navigator as any).webkitGetUserMedia || 
+                            (navigator as any).mozGetUserMedia || 
+                            (navigator as any).msGetUserMedia;
+        
+        if (!getUserMedia) {
+          alert("Microphone access is not supported in this browser. Please use a modern browser like Chrome, Firefox, or Edge.");
+          return;
+        }
+        
+        // Use legacy API
+        getUserMedia.call(navigator, { audio: true }, 
+          (stream: MediaStream) => {
+            // Handle legacy stream
+            const mediaRecorder = new (window as any).MediaRecorder(stream);
+            mediaRecorderRef.current = mediaRecorder;
+            audioChunksRef.current = [];
+            
+            mediaRecorder.ondataavailable = (event: any) => {
+              if (event.data.size > 0) {
+                audioChunksRef.current.push(event.data);
+              }
+            };
+            
+            mediaRecorder.onstop = () => {
+              const audioBlob = new Blob(audioChunksRef.current, { type: mimeType });
+              const url = URL.createObjectURL(audioBlob);
+              setAudioURL(url);
+              onRecordingComplete(audioBlob);
+              stream.getTracks().forEach((track: any) => track.stop());
+            };
+            
+            mediaRecorder.start();
+            setIsRecording(true);
+            setRecordingTime(0);
+            
+            timerRef.current = setInterval(() => {
+              setRecordingTime((prev) => prev + 1);
+            }, 1000);
+          },
+          (error: any) => {
+            console.error("Error accessing microphone:", error);
+            let errorMessage = "Could not access microphone. ";
+            
+            if (error.name === 'NotAllowedError' || error.name === 'PermissionDeniedError') {
+              errorMessage += "Please allow microphone access in your browser settings and try again.";
+            } else if (error.name === 'NotFoundError' || error.name === 'DevicesNotFoundError') {
+              errorMessage += "No microphone found. Please connect a microphone and try again.";
+            } else if (error.name === 'NotReadableError' || error.name === 'TrackStartError') {
+              errorMessage += "Microphone is being used by another application. Please close other applications using the microphone and try again.";
+            } else {
+              errorMessage += "Please check your browser permissions and try again.";
+            }
+            
+            alert(errorMessage);
+          }
+        );
+        return;
+      }
+      
+      // Check if getUserMedia method exists
+      if (typeof navigator.mediaDevices.getUserMedia !== 'function') {
+        alert("Microphone access is not available. Please check your browser permissions and ensure you're using HTTPS or localhost.");
         return;
       }
 
-      // Request microphone permission
-      const stream = await navigator.mediaDevices.getUserMedia({ 
-        audio: {
-          echoCancellation: true,
-          noiseSuppression: true,
-          autoGainControl: true,
+      // Request microphone permission with fallback options
+      let stream: MediaStream;
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ 
+          audio: {
+            echoCancellation: true,
+            noiseSuppression: true,
+            autoGainControl: true,
+          }
+        });
+      } catch (err: any) {
+        // Try with simpler constraints if the first attempt fails
+        if (err.name === 'OverconstrainedError' || err.name === 'ConstraintNotSatisfiedError') {
+          stream = await navigator.mediaDevices.getUserMedia({ 
+            audio: true
+          });
+        } else {
+          throw err;
         }
-      });
+      }
       
-      const mediaRecorder = new MediaRecorder(stream, {
-        mimeType: 'audio/webm;codecs=opus'
-      });
+      // Determine best MIME type for MediaRecorder
+      let recorderMimeType = 'audio/webm;codecs=opus';
+      if (!MediaRecorder.isTypeSupported(recorderMimeType)) {
+        // Try alternatives
+        const alternatives = [
+          'audio/webm',
+          'audio/ogg;codecs=opus',
+          'audio/mp4',
+          'audio/wav'
+        ];
+        
+        for (const alt of alternatives) {
+          if (MediaRecorder.isTypeSupported(alt)) {
+            recorderMimeType = alt;
+            mimeType = alt.split(';')[0]; // Use base type for blob
+            break;
+          }
+        }
+        
+        // If no specific type is supported, use default
+        if (recorderMimeType === 'audio/webm;codecs=opus') {
+          recorderMimeType = '';
+        }
+      } else {
+        mimeType = 'audio/webm';
+      }
+      
+      const mediaRecorder = recorderMimeType 
+        ? new MediaRecorder(stream, { mimeType: recorderMimeType })
+        : new MediaRecorder(stream);
       
       mediaRecorderRef.current = mediaRecorder;
       audioChunksRef.current = [];
@@ -63,7 +167,8 @@ export function VoiceRecorder({
       };
 
       mediaRecorder.onstop = () => {
-        const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
+        // Use the determined blob type
+        const audioBlob = new Blob(audioChunksRef.current, { type: mimeType });
         const url = URL.createObjectURL(audioBlob);
         setAudioURL(url);
         onRecordingComplete(audioBlob);

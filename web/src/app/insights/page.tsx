@@ -11,6 +11,7 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  Cell,
 } from "recharts";
 import { useState, useEffect } from "react";
 import { getEntries, type Entry } from "@/lib/supabase/entries";
@@ -111,7 +112,7 @@ export default function InsightsPage() {
                   <Tooltip />
                   <Bar dataKey="percentage" radius={[0, 8, 8, 0]}>
                     {emotionData.map((entry, index) => (
-                      <Bar.Cell key={`cell-${index}`} fill={entry.color} />
+                      <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Bar>
                 </BarChart>
