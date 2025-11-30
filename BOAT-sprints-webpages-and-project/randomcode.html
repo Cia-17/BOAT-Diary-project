@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>A Day In My Life — Sprint 1</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;line-height:1.5;margin:0;padding:0;color:#111}
+    header{background:#0b74da;color:#fff;padding:20px}
+    .container{max-width:980px;margin:24px auto;padding:0 18px}
+    nav a{color:#fff;margin-right:12px;text-decoration:none;font-weight:600}
+    section{margin-bottom:28px;padding:18px;border-radius:8px;background:#fff;box-shadow:0 6px 18px rgba(0,0,0,.06)}
+    h1,h2{margin:0 0 12px}
+    pre{background:#f5f5f7;padding:12px;border-radius:6px;overflow:auto}
+    .btn{display:inline-block;padding:10px 14px;border-radius:8px;text-decoration:none;background:#0b74da;color:#fff}
+    ul.checklist{list-style:none;padding-left:0}
+    ul.checklist li{padding:6px 0}
+    footer{color:#666;font-size:14px;text-align:center;padding:24px 0}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <strong>A Day In My Life — Sprint 1</strong>
+        <!-- Update the links below if you split pages into separate files -->
+        <a href="#functionality">Functionality</a>
+        <a href="#userguide">User Guide</a>
+        <a href="#team">Team</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#frontend">Frontend</a>
+        <a href="#testing">Testing</a>
+        <a href="#retro">Retrospective</a>
+        <a href="#links">Links</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section id="overview">
+      <h1>Project Overview</h1>
+      <p><strong>Project:</strong> A Day In My Life — Digital Diary Web Application</p>
+      <p><strong>Short description:</strong> A personal journaling platform where users create text, image, audio or short video diary entries and track mood trends.</p>
+      <p><strong>Sprint goal (Sprint 1):</strong> Deliver a minimal functional slice that demonstrates user authentication + create and view a diary entry. Provide Sprint 1 documentation on this site.</p>
+      <p><a class="btn" href="../diary-app/index.php">Open App Demo</a> <!-- Change to correct path if deployed -->
+      <a class="btn" href="https://github.com/yourorg/your-repo" style="background:#333;margin-left:8px">Open GitHub Repo</a></p>
+    </section>
+
+    <section id="functionality">
+      <h2>Functionality Completed (Sprint 1)</h2>
+      <p>Replace the bullets below with the exact features your team has implemented by the end of Sprint 1.</p>
+      <ul>
+        <li>• User registration (sign up) — <em>implemented / planned</em></li>
+        <li>• User login — <em>implemented / planned</em></li>
+        <li>• Create a text diary entry — <em>implemented / planned</em></li>
+        <li>• View entries (dashboard) — <em>implemented / planned</em></li>
+      </ul>
+      <p>Add screenshots here (use <code>&lt;img src="path/to/screenshot.png" alt="screenshot"/&gt;</code>) or place them in an <code>/assets</code> folder and link.</p>
+    </section>
+
+    <section id="userguide">
+      <h2>User Guide (How to use current features)</h2>
+      <p>Short step-by-step for the currently working features (replace with your content):</p>
+      <ol>
+        <li>Open the app demo and click <strong>Sign Up</strong> to create an account.</li>
+        <li>Log in using the credentials you created.</li>
+        <li>On the dashboard, type your diary text and click <strong>Save Entry</strong>.</li>
+        <li>Your entry will appear below the form in the dashboard.</li>
+      </ol>
+    </section>
+
+    <section id="team">
+      <h2>Team Contributions (Sprint 1)</h2>
+      <p>One short paragraph per team member. Use this template to copy/paste.</p>
+      <pre>
+Lawrencia K. Baffour
+- Role: Backend & Integration
+- Contribution: Implemented user registration, login, and connected forms to the database. Wrote saveEntry() PHP logic.
+
+Teammate 2
+- Role: Frontend
+- Contribution: Built dashboard UI and responsive layout, created screenshots for docs.
+
+Teammate 3
+- Role: Database & Testing
+- Contribution: Designed tables, created sample data, and performed manual testing.
+      </pre>
+    </section>
+
+    <section id="architecture">
+      <h2>Architecture</h2>
+      <h3>Major pages (planned)</h3>
+      <ul>
+        <li>Login / Register</li>
+        <li>Dashboard (quick entry + recent entries)</li>
+        <li>Entry creation / edit page</li>
+        <li>Insights / Mood analytics</li>
+      </ul>
+
+      <h3>Database tables (example)</h3>
+      <pre>
+users(id, name, email, password, created_at)
+entries(id, user_id, text, mood, image_path, audio_path, video_path, created_at)
+      </pre>
+
+      <h3>PHP functions (implemented / planned)</h3>
+      <ul>
+        <li>registerUser()</li>
+        <li>loginUser()</li>
+        <li>saveEntry()</li>
+        <li>getEntriesByUser()</li>
+      </ul>
+
+      <h3>Implemented vs Planned</h3>
+      <table style="width:100%;border-collapse:collapse">
+        <tr><th style="text-align:left">Feature</th><th style="text-align:left">Status</th></tr>
+        <tr><td>User registration</td><td>Implemented</td></tr>
+        <tr><td>Login</td><td>Implemented</td></tr>
+        <tr><td>Create entry</td><td>Implemented</td></tr>
+        <tr><td>Insights / Mood tracking</td><td>Planned</td></tr>
+      </table>
+    </section>
+
+    <section id="frontend">
+      <h2>Frontend choices</h2>
+      <p>List of frameworks and libraries used (replace with your choices):</p>
+      <ul>
+        <li>HTML, CSS, JavaScript</li>
+        <li>Bootstrap (for layout) — optional</li>
+        <li>Vanilla JS for interactions (no heavy frameworks in Sprint 1)</li>
+      </ul>
+    </section>
+
+    <section id="testing">
+      <h2>Testing strategy</h2>
+      <p>Short description of manual and/or automated tests (if any). Example:</p>
+      <ul>
+        <li>Manual tests for registration, login, and saving entries.</li>
+        <li>No automated tests in Sprint 1 (optional).</li>
+      </ul>
+    </section>
+
+    <section id="retro">
+      <h2>Retrospective (Sprint 1)</h2>
+      <p>Write 3 short bullets for each category:</p>
+      <ul>
+        <li><strong>What went well:</strong> e.g., basic features implemented.</li>
+        <li><strong>What didn't go well:</strong> e.g., merge conflicts, slow setup.</li>
+        <li><strong>Actions for next sprint:</strong> e.g., assign branches, finalize DB schema first.</li>
+      </ul>
+    </section>
+
+    <section id="links">
+      <h2>Important links</h2>
+      <ul>
+        <li>GitHub repo: <a href="#">https://github.com/yourorg/your-repo</a></li>
+        <li>Demo (local): <code>http://localhost/diary-app</code></li>
+        <li>Commit link for Sprint 1: <a href="#">(paste commit URL here)</a></li>
+      </ul>
+
+      <h3>Sprint 1 checklist (copy into your repo README too)</h3>
+      <ul class="checklist">
+        <li>[ ] GitHub repo created and pushed</li>
+        <li>[ ] Team website (this site) created with Sprint 1 pages</li>
+        <li>[ ] Minimal diary app demo (register, login, create entry)</li>
+        <li>[ ] Screenshots and user guide added</li>
+        <li>[ ] Team contributions written</li>
+        <li>[ ] Architecture page completed</li>
+        <li>[ ] Commit/milestone link copied into this site</li>
+        <li>[ ] Sprint 1 retrospective written</li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>Sprint 1.</p>
+    </footer>
+  </main>
+</body>
+</html>

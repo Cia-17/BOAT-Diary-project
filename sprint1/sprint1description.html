@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/f04a6538ba.js" crossorigin="anonymous"></script>
+    <meta name="description" content="Lawrencia is an excellent front-end developer based in Ghana">
+    <title>Team BOAT Sprint Delivarables And Project</title>
+</head>
+<body>
+    <div class="container">
+        <nav class="d-flex justify-content-between">
+        
+        <ul>
+            <li class="active">
+                <a href="/" title="home page">Home</a>
+            </li>
+            <li>
+                <a href="/sprint1.html" title="about page">Sprint 1</a></li>
+            <li>
+                <a href="/sprint2.html" title="work page">Sprint 2</a></li>
+            <li>
+                <a href="/sprint3.html" title="contact page">Sprint 3</a></li>
+        </ul>
+    </nav>
+    </div>
+
+    <div class="container">
+        <h3 class="text-center m-5">Common Sprint Deliverables</h3>
+        <ul style="list-style:none;"><li><strong>Description of functionality completed</strong></li></ul>
+        <p>As of Sprint 1, our team has focused on building the project foundation. We have: <br>
+            <ul><li>Planned the core architecture for the diary system. </li></ul>
+            <ul><li>Set up the development environment using XAMPP (Apache + MySQL + PHP). </li></ul>
+            <ul><li>Designed the database structure for users and diary entries. </li></ul>
+            <ul><li>Created initial HTML and CSS mockups for the login, registration, and dashboard pages. </li></ul>
+            <ul><li>Implemented basic user registration and login functionality using PHP and MySQL. </li></ul>
+            <ul><li>Added the ability for a logged-in user to create and view text-based diary entries stored in the database. </li></ul> <br>
+            This represents the first functional slice of our application, showing that the diary system can securely store entries linked to individual users.
+        </p>
+
+        <ul style="list-style:none;"><li><strong>User Guide (how to use the current features)</strong></li></ul>
+        <p>
+            <ul>
+                <li>Sign Up - Open the Register page and fill in your name, email, and password.</li>
+                <li>Log In - Enter your email and password to access your dashboard.</li>
+                <li>Dashboard - See a simple text area to create your diary entry and choose a mood.</li>
+                <li>Save Entry - Click Save to store the entry in your personal journal.</li>
+                <li>View Past Entries - Entries appear below the form in reverse chronological order.</li>
+                <li>Upload images or short videos, and see motivational quotes on the dashboard.</li>
+            </ul>
+        </p>
+
+        <ul style="list-style:none;"><li><strong>Summary of each team member's contribution</strong></li></ul>
+        <p>
+            <ul>
+                <li>Lawrencia Kyei Baffour: </li>
+                <li>Shepherd Adiko: </li>
+                <li>Donna Omaboe: </li>
+                <li>Leslie Tettey: </li>
+            </ul>
+        </p>
+
+        <ul style="list-style:none;"><li><strong>Link to GitHub commit or milestone</strong></li></ul>
+
+        <ul style="list-style:none;"><li><strong>Testing strategy and tests</strong></li></ul>
+        <p></p>
+
+        <ul style="list-style:none;"><li><strong>Retrospective</strong></li></ul>
+        <p>
+           <em>What Went Well:</em> 
+           <ul>
+            <li>Team communication and role assignment were clear.</li>
+            <li> Successfully connected PHP scripts to MySQL database via XAMPP.</li>
+            <li>First functional slice (login to entry to display) completed.</li>
+           </ul>
+                   
+           <em>What Did Not Go Well:</em> 
+                <ul>
+                    <li>Database setup took longer than expected due to connection errors.</li>
+                    <li>Coordinating Git merges caused some delays.</li>
+                    <li>Time management was tight toward the deadline.</li>
+                </ul>
+                
+           <em>Improvements for Next Sprint:</em> 
+                <ul>
+                    <li>Plan database structure earlier before coding.</li>
+                    <li>Assign a member to handle testing and documentation from the start.</li>
+                    <li>Use Git branches for individual features to avoid conflicts. </li>
+                </ul>
+                
+        </p>
+
+        <h3 class="text-center m-5">Sprint 1 Specific Deliverables</h3>
+        <ul style="list-style:none;"><li><strong>Architecture page</strong></li></ul>
+        <p>
+            <ul>
+                <li>Major Pages</li> <br>
+                    <em>Implemented</em>
+                    <ol>
+                        <li>register.php: User registration page for new accounts.</li>
+                        <li>login.php: Login form that authenticates user credentials.</li>
+                        <li>dashboard.php: Main dashboard showing entry form and past entries.</li>
+                        <li>save_entry.php: Backend script that stores entries in the database.</li>
+                
+                    </ol>
+
+                    <em>Planned</em>
+                    <ol>
+                        <li>insights.php: Displays mood statistics and graphs.</li>
+                        <li>profile.php: User profile management page.</li>
+                    
+                    </ol> <br>
+                
+                <li>Database Tables</li>
+                <p>Our main tables are the Users table and Entries table. The User table will store information about the user,
+                    while the entry table will store the diary entries of the user.
+                </p> <br>
+                <li>PHP Functions</li> <br>
+                    <em>Implemented</em>
+                        <ol>
+                            <li>registerUser(): Inserts new user into the users table.</li>
+                            <li>loginUser(): Verifies email & password, starts session.</li>
+                            <li>saveEntry(): Stores diary entry linked to logged-in user.</li>
+                            <li>getEntriesByUser(): Retrieves all entries for user.</li>
+                        </ol>
+
+                        <em>Planned</em>
+                        <ol>
+                            <li>getMoodStats(): Generates mood summary.</li>
+                            <li>getMotivationalQuote(): Fetches daily quote from API or DB.</li>
+                        </ol>
+
+            </ul>
+        </p>
+
+
+        <ul style="list-style:none;"><li><strong>Frontend libraries / Frameworks</strong></li></ul>
+        <ol>
+            <li>HTML5 & CSS3 - Used for all front-end structure and styling.</li>
+            <li>Bootstrap 5 - For layout grid, buttons, and responsive design.</li>
+            <li>JavaScript - Handles form validation and interactive UI elements.</li>
+            <li>PHP + MySQL - For backend logic and data storage.</li>
+            <li>Server Environment - Apache Web Server via XAMPP.</li>
+        </ol>
+
+
+        <ul style="list-style:none;"><li><strong>Demo of a Functional Slice</strong></li></ul>
+
+        
+
+         <footer>
+
+            <div class="d-flex justify-content-center mb-5">
+            <a href="https://github.com/Cia-17/BOAT-Diary-project/tree/main" class="email-link">View Github repository</a></div>
+            
+            <p class="text-center mt-5">This project was coded by Team Boat and is <a href="https://github.com/Cia-17/my-nov-portfolio" target="_blank">open sourced</a></p>
+        </footer>
+        
+        
+    </div>
+
