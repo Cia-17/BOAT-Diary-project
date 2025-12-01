@@ -20,7 +20,7 @@ $startDate = $_GET['start_date'] ?? '';
 $endDate = $_GET['end_date'] ?? '';
 $sortBy = $_GET['sort'] ?? 'date-desc';
 
-// Load data
+
 try {
     $allEntries = $client->getEntries($userId, 1000);
     $moods = $client->getMoods();
