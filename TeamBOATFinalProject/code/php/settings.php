@@ -1,8 +1,4 @@
 <?php
-/**
- * Settings Page
- * User account settings and preferences
- */
 
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/SupabaseClient.php';
@@ -15,7 +11,7 @@ $success = '';
 $client = new SupabaseClient();
 $userId = getCurrentUserId();
 
-// Get user data
+
 try {
     $user = $client->getUser();
     $userName = $user['user_metadata']['full_name'] ?? $user['user_metadata']['name'] ?? explode('@', $user['email'])[0] ?? 'User';
@@ -30,7 +26,7 @@ try {
     $entryCount = 0;
 }
 
-// Handle password change
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
     $newPassword = $_POST['new_password'] ?? '';
     $confirmPassword = $_POST['confirm_password'] ?? '';
@@ -41,8 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
         $error = $passwordValidation['message'];
     } else {
         try {
-            // Note: Supabase password update requires special endpoint
-            // This is a simplified version - in production, use Supabase Admin API
+            
             $error = 'Password change functionality requires Supabase Admin API. Please use the Supabase dashboard to change your password.';
         } catch (Exception $e) {
             $error = 'Failed to change password: ' . $e->getMessage();
@@ -71,8 +66,7 @@ include __DIR__ . '/header.php';
             <?php echo htmlspecialchars($success); ?>
         </div>
         <?php endif; ?>
-        
-        <!-- Profile Information -->
+
         <div class="card" style="margin-bottom: 2rem;">
             <div class="card-header">
                 <h2 class="card-title">Profile Information</h2>
@@ -92,7 +86,6 @@ include __DIR__ . '/header.php';
             </div>
         </div>
         
-        <!-- Statistics -->
         <div class="card" style="margin-bottom: 2rem;">
             <div class="card-header">
                 <h2 class="card-title">Statistics</h2>
@@ -107,7 +100,6 @@ include __DIR__ . '/header.php';
             </div>
         </div>
         
-        <!-- Change Password -->
         <div class="card" style="margin-bottom: 2rem;">
             <div class="card-header">
                 <h2 class="card-title">Change Password</h2>
@@ -150,7 +142,6 @@ include __DIR__ . '/header.php';
             </div>
         </div>
         
-        <!-- Danger Zone -->
         <div class="card" style="border-color: #ef4444;">
             <div class="card-header">
                 <h2 class="card-title" style="color: #ef4444;">Danger Zone</h2>

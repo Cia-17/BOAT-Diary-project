@@ -1,8 +1,5 @@
 <?php
-/**
- * Home/Index Page
- * Redirects authenticated users to dashboard, guests to landing
- */
+
 
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/SupabaseClient.php';
@@ -16,7 +13,7 @@ if (isAuthenticated()) {
             exit;
         }
     } catch (Exception $e) {
-        // If error, go to landing
+
     }
 }
 

@@ -1,15 +1,11 @@
 <?php
-/**
- * Landing Page
- * Marketing/homepage for non-authenticated users
- */
+
 
 $pageTitle = 'DiaryPro - Your Personal Journal';
 include __DIR__ . '/header.php';
 ?>
 
 <div style="min-height: 100vh; background: white;">
-    <!-- Hero Section -->
     <section style="position: relative; overflow: hidden; background: linear-gradient(to bottom right, #FFF7D1, #FFE7EF, #B7E4C7); padding: 5rem 1rem;">
         <div class="container" style="position: relative; z-index: 10;">
             <div style="text-align: center; max-width: 800px; margin: 0 auto;">
@@ -31,7 +27,7 @@ include __DIR__ . '/header.php';
         </div>
     </section>
 
-    <!-- Features Section -->
+
     <section style="padding: 4rem 1rem; background: white;">
         <div class="container">
             <h2 style="text-align: center; font-size: 2.5rem; font-weight: 700; margin-bottom: 3rem;">
@@ -78,7 +74,6 @@ include __DIR__ . '/header.php';
         </div>
     </section>
 
-    <!-- CTA Section -->
     <section style="padding: 4rem 1rem; background: linear-gradient(to right, var(--color-accent-yellow), var(--color-accent-orange));">
         <div class="container" style="text-align: center;">
             <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--color-foreground);">

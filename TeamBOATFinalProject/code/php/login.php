@@ -1,8 +1,4 @@
 <?php
-/**
- * Login Page
- * Handles user authentication with OWASP security features
- */
 
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/SupabaseClient.php';
@@ -11,7 +7,6 @@ require_once __DIR__ . '/security.php';
 $error = '';
 $quote = null;
 
-// Fetch random quote
 try {
     $quoteResponse = file_get_contents('https://zenquotes.io/api/random');
     $quoteData = json_decode($quoteResponse, true);
@@ -28,27 +23,25 @@ try {
     ];
 }
 
-// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = sanitizeInput($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
     $csrfToken = $_POST['csrf_token'] ?? '';
     
-    // CSRF Protection
     if (!validateCsrfToken($csrfToken)) {
         $error = 'Security validation failed. Please refresh the page and try again.';
     }
-    // Check account lockout
+
     elseif (($lockoutStatus = isAccountLocked($email)) && $lockoutStatus['locked']) {
         $minutesRemaining = ceil(($lockoutStatus['lockedUntil'] - time()) / 60);
         $error = "Account is locked due to too many failed login attempts. Please try again in {$minutesRemaining} minute(s).";
     }
-    // Rate limiting
+
     elseif (!($rateLimit = checkRateLimit("login:{$email}", 5, 900))['allowed']) {
         $minutesRemaining = ceil(($rateLimit['resetTime'] - time()) / 60);
         $error = "Too many login attempts. Please try again in {$minutesRemaining} minute(s).";
     }
-    // Validate input
+
     elseif (empty($email) || empty($password)) {
         $error = 'Please enter both email and password.';
     }

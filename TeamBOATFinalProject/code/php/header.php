@@ -1,7 +1,5 @@
 <?php
-/**
- * Header component - included in all pages
- */
+
 if (!isset($pageTitle)) {
     $pageTitle = 'DiaryPro - Your Personal Journal';
 }
@@ -20,7 +18,7 @@ if (!isset($pageTitle)) {
 </head>
 <body>
     <?php if (isAuthenticated()): ?>
-    <!-- Navigation Bar for Authenticated Users -->
+
     <nav class="navbar">
         <div class="navbar-container">
             <a href="dashboard.php" class="navbar-brand">
@@ -38,7 +36,7 @@ if (!isset($pageTitle)) {
         </div>
     </nav>
     <?php else: ?>
-    <!-- Navigation Bar for Guests -->
+
     <nav class="navbar">
         <div class="navbar-container">
             <a href="index.php" class="navbar-brand">

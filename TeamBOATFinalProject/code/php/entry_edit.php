@@ -1,8 +1,4 @@
 <?php
-/**
- * Edit Entry Page
- * Edit existing journal entry
- */
 
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/SupabaseClient.php';
@@ -21,7 +17,6 @@ if ($entryId <= 0) {
     exit;
 }
 
-// Load entry
 try {
     $entry = $client->getEntryById($entryId, $userId);
     if (!$entry) {
@@ -33,21 +28,19 @@ try {
     $entry = null;
 }
 
-// Load moods
+
 try {
     $moods = $client->getMoods();
 } catch (Exception $e) {
     $moods = [];
 }
 
-// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $entry) {
     $moodId = intval($_POST['mood_id'] ?? 0);
     $entryText = sanitizeInput($_POST['entry_text'] ?? '');
     $entryDate = $_POST['entry_date'] ?? date('Y-m-d');
     $entryTime = $_POST['entry_time'] ?? date('H:i');
     
-    // Validate input
     if (empty($entryText)) {
         $error = 'Please enter some text for your entry.';
     } elseif ($moodId <= 0) {
@@ -58,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $entry) {
         try {
             $mediaFiles = [];
             
-            // Keep existing media files
+
             if (!empty($entry['media_files'])) {
                 foreach ($entry['media_files'] as $existingMedia) {
                     $mediaFiles[] = [
@@ -70,13 +63,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $entry) {
                 }
             }
             
-            // Process new uploaded media files
             $fileErrors = [];
             if (!empty($_FILES['media_files']['name'][0])) {
                 $fileCount = count($_FILES['media_files']['name']);
                 
                 for ($i = 0; $i < $fileCount; $i++) {
-                    // Check for upload errors
+
                     $uploadError = $_FILES['media_files']['error'][$i];
                     
                     if ($uploadError !== UPLOAD_ERR_OK) {
@@ -105,7 +97,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $entry) {
                         'size' => $_FILES['media_files']['size'][$i]
                     ];
                     
-                    // Validate file size
                     if ($file['size'] > MAX_FILE_SIZE) {
                         $fileErrors[] = $file['name'] . ' is too large. Maximum size is ' . (MAX_FILE_SIZE / 1024 / 1024) . 'MB.';
                         continue;
@@ -116,7 +107,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $entry) {
                         continue;
                     }
                     
-                    // Determine file category based on MIME type
                     $category = null;
                     if (strpos($file['type'], 'image/') === 0) {
                         $category = 'image';
@@ -125,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $entry) {
                     } elseif (strpos($file['type'], 'video/') === 0) {
                         $category = 'video';
                     } else {
-                        // Try to determine from file extension as fallback
+
                         $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
                         $imageExts = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'svg'];
                         $audioExts = ['mp3', 'wav', 'ogg', 'm4a', 'aac', 'flac', 'webm'];
@@ -143,28 +133,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $entry) {
                         }
                     }
                     
-                    // Validate file type (magic bytes) - but don't fail if validation fails, just warn
+
                     $validation = validateFileType($file['tmp_name'], $category);
                     if (!$validation['valid']) {
-                        // Log warning but continue - MIME type check is primary validation
                         error_log("File type validation warning for {$file['name']}: {$validation['error']}");
                     }
                     
-                    // Read file content
                     $fileContent = @file_get_contents($file['tmp_name']);
                     if ($fileContent === false) {
                         $fileErrors[] = $file['name'] . ': Could not read file.';
                         continue;
                     }
                     
-                    // Convert to base64
                     $base64 = base64_encode($fileContent);
                     if (empty($base64)) {
                         $fileErrors[] = $file['name'] . ': Failed to encode file.';
                         continue;
                     }
                     
-                    // Sanitize file name
+
                     $sanitizedName = sanitizeFileName($file['name']);
                     
                     $mediaFiles[] = [
@@ -176,12 +163,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $entry) {
                 }
             }
             
-            // Show file errors as warnings but don't prevent submission
             if (!empty($fileErrors)) {
                 $error = 'Some files could not be uploaded: ' . implode(', ', $fileErrors);
             }
             
-            // Update entry (even if some files failed, as long as we have valid entry data)
             $updatedEntry = $client->updateEntry($entryId, $userId, $moodId, $entryText, $entryDate, $entryTime, $mediaFiles);
             
             if (!empty($fileErrors) && !empty($mediaFiles)) {
@@ -323,19 +308,19 @@ include __DIR__ . '/header.php';
 </div>
 
 <script>
-// Ensure save button is always enabled
+
 document.addEventListener('DOMContentLoaded', function() {
     const saveButton = document.getElementById('save-button');
     const fileInput = document.getElementById('media_files');
     
     if (saveButton) {
-        // Ensure button is always enabled
+
         saveButton.disabled = false;
         saveButton.style.pointerEvents = 'auto';
         saveButton.style.opacity = '1';
         saveButton.style.cursor = 'pointer';
         
-        // Monitor for any attempts to disable the button
+
         const observer = new MutationObserver(function(mutations) {
             mutations.forEach(function(mutation) {
                 if (mutation.type === 'attributes' && mutation.attributeName === 'disabled') {
@@ -352,7 +337,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Ensure button stays enabled when files are selected
     if (fileInput) {
         fileInput.addEventListener('change', function() {
             if (saveButton) {

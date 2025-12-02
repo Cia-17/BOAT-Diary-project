@@ -1,8 +1,4 @@
 <?php
-/**
- * View Entry Page
- * Displays a single journal entry in detail
- */
 
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/SupabaseClient.php';

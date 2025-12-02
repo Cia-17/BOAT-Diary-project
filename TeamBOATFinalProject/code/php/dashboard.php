@@ -1,8 +1,4 @@
 <?php
-/**
- * Dashboard Page
- * Main application page showing recent entries and quick entry form
- */
 
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/SupabaseClient.php';
@@ -15,7 +11,7 @@ $success = '';
 $client = new SupabaseClient();
 $userId = getCurrentUserId();
 
-// Handle quick entry submission
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['quick_entry'])) {
     $moodId = intval($_POST['mood_id'] ?? 0);
     $entryText = sanitizeInput($_POST['entry_text'] ?? '');
@@ -30,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['quick_entry'])) {
         try {
             $client->createEntry($userId, $moodId, $entryText, $entryDate, $entryTime);
             $success = 'Entry saved successfully! ✨';
-            // Clear form
+
             $_POST = [];
         } catch (Exception $e) {
             $error = 'Failed to save entry: ' . $e->getMessage();
@@ -38,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['quick_entry'])) {
     }
 }
 
-// Handle entry deletion
 if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
     $entryId = intval($_GET['delete']);
     try {
@@ -49,12 +44,12 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
     }
 }
 
-// Load data
+
 try {
     $entries = $client->getEntries($userId, 10);
     $moods = $client->getMoods();
     
-    // Fetch random quote
+  
     $quote = null;
     try {
         $quoteResponse = file_get_contents('https://zenquotes.io/api/random');
@@ -84,7 +79,7 @@ include __DIR__ . '/header.php';
 
 <div class="page-container">
     <div class="container-narrow">
-        <!-- Quote Card -->
+
         <?php if ($quote): ?>
         <div class="quote-card">
             <p class="quote-text"><?php echo htmlspecialchars($quote['text']); ?></p>
@@ -92,7 +87,6 @@ include __DIR__ . '/header.php';
         </div>
         <?php endif; ?>
         
-        <!-- Alerts -->
         <?php if ($error): ?>
         <div class="alert alert-error">
             <?php echo htmlspecialchars($error); ?>
@@ -105,7 +99,6 @@ include __DIR__ . '/header.php';
         </div>
         <?php endif; ?>
         
-        <!-- Quick Entry Form -->
         <div class="card" style="margin-bottom: 2rem;">
             <div class="card-header">
                 <h2 class="card-title">Quick Entry</h2>
@@ -177,7 +170,6 @@ include __DIR__ . '/header.php';
             </div>
         </div>
         
-        <!-- Recent Entries -->
         <div class="card">
             <div class="card-header">
                 <h2 class="card-title">Recent Entries</h2>

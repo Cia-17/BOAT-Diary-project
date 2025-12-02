@@ -1,8 +1,4 @@
 <?php
-/**
- * Upload Test Page
- * Diagnostic page to check PHP upload configuration
- */
 
 require_once __DIR__ . '/config.php';
 

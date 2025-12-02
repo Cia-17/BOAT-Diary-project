@@ -1,7 +1,5 @@
 <?php
-/**
- * Footer component - included in all pages
- */
+
 ?>
     <footer class="footer">
         <div class="footer-container">

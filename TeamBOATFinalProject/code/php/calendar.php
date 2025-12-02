@@ -1,8 +1,4 @@
 <?php
-/**
- * Calendar Page
- * Monthly calendar view of entries
- */
 
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/SupabaseClient.php';
@@ -13,15 +9,14 @@ requireAuth();
 $client = new SupabaseClient();
 $userId = getCurrentUserId();
 
-// Get current month/year from query params or use current date
 $currentMonth = isset($_GET['month']) ? intval($_GET['month']) : date('n');
 $currentYear = isset($_GET['year']) ? intval($_GET['year']) : date('Y');
 
-// Validate month/year
+
 if ($currentMonth < 1 || $currentMonth > 12) $currentMonth = date('n');
 if ($currentYear < 2020 || $currentYear > 2100) $currentYear = date('Y');
 
-// Calculate previous/next month
+
 $prevMonth = $currentMonth - 1;
 $prevYear = $currentYear;
 if ($prevMonth < 1) {
@@ -38,8 +33,7 @@ if ($nextMonth > 12) {
 
 try {
     $entries = $client->getEntries($userId, 1000);
-    
-    // Group entries by date
+
     $entriesByDate = [];
     foreach ($entries as $entry) {
         $dateKey = $entry['entry_date'];
@@ -53,11 +47,10 @@ try {
     $entriesByDate = [];
 }
 
-// Get month info
 $monthName = date('F', mktime(0, 0, 0, $currentMonth, 1, $currentYear));
 $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $currentMonth, $currentYear);
 $firstDayOfWeek = date('w', mktime(0, 0, 0, $currentMonth, 1, $currentYear));
-$firstDayOfWeek = $firstDayOfWeek == 0 ? 6 : $firstDayOfWeek - 1; // Convert Sunday=0 to Monday=0
+$firstDayOfWeek = $firstDayOfWeek == 0 ? 6 : $firstDayOfWeek - 1; 
 
 $pageTitle = 'Calendar - DiaryPro';
 include __DIR__ . '/header.php';
@@ -74,7 +67,6 @@ include __DIR__ . '/header.php';
             <a href="entry_new.php" class="button button-primary">+ New Entry</a>
         </div>
         
-        <!-- Calendar Grid -->
         <div class="card">
             <div class="card-content">
                 <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.5rem; margin-bottom: 1rem;">
@@ -90,14 +82,12 @@ include __DIR__ . '/header.php';
                 
                 <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.5rem;">
                     <?php 
-                    // Empty cells for days before month starts
                     for ($i = 0; $i < $firstDayOfWeek; $i++): 
                     ?>
                     <div style="aspect-ratio: 1; background: transparent;"></div>
                     <?php endfor; ?>
                     
                     <?php 
-                    // Days of the month
                     for ($day = 1; $day <= $daysInMonth; $day++): 
                         $dateKey = sprintf('%04d-%02d-%02d', $currentYear, $currentMonth, $day);
                         $hasEntries = isset($entriesByDate[$dateKey]);
@@ -117,7 +107,6 @@ include __DIR__ . '/header.php';
             </div>
         </div>
         
-        <!-- Recent Entries -->
         <?php if (!empty($entries)): ?>
         <div class="card" style="margin-top: 2rem;">
             <div class="card-header">

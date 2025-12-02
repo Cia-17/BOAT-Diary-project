@@ -1,8 +1,4 @@
 <?php
-/**
- * Registration Page
- * Handles user registration with OWASP security features
- */
 
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/SupabaseClient.php';
@@ -12,7 +8,6 @@ $error = '';
 $success = false;
 $quote = null;
 
-// Fetch random quote
 try {
     $quoteResponse = file_get_contents('https://zenquotes.io/api/random');
     $quoteData = json_decode($quoteResponse, true);
@@ -29,7 +24,7 @@ try {
     ];
 }
 
-// Handle form submission
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = sanitizeInput($_POST['name'] ?? '');
     $email = sanitizeInput($_POST['email'] ?? '');
@@ -37,24 +32,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $confirmPassword = $_POST['confirm_password'] ?? '';
     $csrfToken = $_POST['csrf_token'] ?? '';
     
-    // CSRF Protection
+
     if (!validateCsrfToken($csrfToken)) {
         $error = 'Security validation failed. Please refresh the page and try again.';
     }
-    // Rate limiting
+
     elseif (!($rateLimit = checkRateLimit("register:{$email}", 3, 3600))['allowed']) {
         $minutesRemaining = ceil(($rateLimit['resetTime'] - time()) / 60);
         $error = "Too many registration attempts. Please try again in {$minutesRemaining} minute(s).";
     }
-    // Password match
+ 
     elseif ($password !== $confirmPassword) {
         $error = 'Passwords do not match.';
     }
-    // Password validation
+
     elseif (!($passwordValidation = validatePassword($password))['valid']) {
         $error = $passwordValidation['message'];
     }
-    // Validate input
+
     elseif (empty($name) || empty($email) || empty($password)) {
         $error = 'Please fill in all fields.';
     }
@@ -188,7 +183,7 @@ include __DIR__ . '/header.php';
 </div>
 
 <script>
-// Password strength validation (client-side)
+
 document.getElementById('password')?.addEventListener('input', function(e) {
     const password = e.target.value;
     const strengthDiv = document.getElementById('passwordStrength');
@@ -237,7 +232,7 @@ document.getElementById('password')?.addEventListener('input', function(e) {
     strengthLabel.textContent = label;
     strengthLabel.style.color = color;
     
-    // Show feedback if weak
+   
     if (strength < 4) {
         feedback.textContent = 'Password must contain: uppercase, lowercase, numbers, and symbols';
         feedback.style.display = 'block';

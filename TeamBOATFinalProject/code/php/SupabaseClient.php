@@ -1,9 +1,5 @@
 <?php
-/**
- * SupabaseClient.php
- * PHP class for interacting with Supabase REST API
- * Handles authentication, CRUD operations, and file uploads
- */
+
 
 require_once __DIR__ . '/config.php';
 
@@ -22,9 +18,6 @@ class SupabaseClient {
         }
     }
     
-    /**
-     * Make HTTP request to Supabase
-     */
     private function request($method, $endpoint, $data = null, $headers = []) {
         $url = $this->url . $endpoint;
         
@@ -65,9 +58,6 @@ class SupabaseClient {
         return $decoded;
     }
     
-    /**
-     * Authentication: Sign up
-     */
     public function signUp($email, $password, $metadata = []) {
         $data = [
             'email' => $email,
@@ -78,9 +68,7 @@ class SupabaseClient {
         return $this->request('POST', '/auth/v1/signup', $data);
     }
     
-    /**
-     * Authentication: Sign in
-     */
+
     public function signIn($email, $password) {
         $data = [
             'email' => $email,
@@ -99,9 +87,7 @@ class SupabaseClient {
         return $response;
     }
     
-    /**
-     * Authentication: Get current user
-     */
+
     public function getUser() {
         if (!$this->accessToken) {
             return null;
@@ -115,51 +101,40 @@ class SupabaseClient {
         }
     }
     
-    /**
-     * Authentication: Sign out
-     */
+
     public function signOut() {
         if ($this->accessToken) {
             try {
                 $this->request('POST', '/auth/v1/logout');
             } catch (Exception $e) {
-                // Ignore errors on logout
             }
         }
         
         logout();
     }
     
-    /**
-     * Database: Select from table
-     */
+
     public function select($table, $filters = [], $options = []) {
         $endpoint = '/rest/v1/' . $table;
         
-        // Build query string
         $queryParams = [];
         
-        // Select columns
         if (isset($options['select'])) {
             $queryParams[] = 'select=' . urlencode($options['select']);
         }
         
-        // Filters
         foreach ($filters as $key => $value) {
             $queryParams[] = $key . '=eq.' . urlencode($value);
         }
         
-        // Order
         if (isset($options['order'])) {
             $queryParams[] = 'order=' . urlencode($options['order']);
         }
         
-        // Limit
         if (isset($options['limit'])) {
             $queryParams[] = 'limit=' . intval($options['limit']);
         }
         
-        // Offset
         if (isset($options['offset'])) {
             $queryParams[] = 'offset=' . intval($options['offset']);
         }
@@ -171,9 +146,6 @@ class SupabaseClient {
         return $this->request('GET', $endpoint);
     }
     
-    /**
-     * Database: Insert into table
-     */
     public function insert($table, $data) {
         $endpoint = '/rest/v1/' . $table;
         
@@ -184,13 +156,10 @@ class SupabaseClient {
         return $this->request('POST', $endpoint, $data, $headers);
     }
     
-    /**
-     * Database: Update table
-     */
     public function update($table, $data, $filters = []) {
         $endpoint = '/rest/v1/' . $table;
         
-        // Build query string for filters
+
         $queryParams = [];
         foreach ($filters as $key => $value) {
             $queryParams[] = $key . '=eq.' . urlencode($value);
@@ -207,13 +176,11 @@ class SupabaseClient {
         return $this->request('PATCH', $endpoint, $data, $headers);
     }
     
-    /**
-     * Database: Delete from table
-     */
+
     public function delete($table, $filters = []) {
         $endpoint = '/rest/v1/' . $table;
         
-        // Build query string for filters
+
         $queryParams = [];
         foreach ($filters as $key => $value) {
             $queryParams[] = $key . '=eq.' . urlencode($value);
@@ -226,18 +193,13 @@ class SupabaseClient {
         return $this->request('DELETE', $endpoint);
     }
     
-    /**
-     * Get all moods
-     */
     public function getMoods() {
         return $this->select('moods', [], [
             'order' => 'mood_name.asc'
         ]);
     }
     
-    /**
-     * Get user entries
-     */
+
     public function getEntries($userId, $limit = null, $offset = null) {
         $options = [
             'select' => '*,mood:moods(*),media_files(*)',
@@ -257,9 +219,7 @@ class SupabaseClient {
         ], $options);
     }
     
-    /**
-     * Get entry by ID
-     */
+ 
     public function getEntryById($entryId, $userId) {
         $result = $this->select('entries', [
             'entry_id' => $entryId,
@@ -273,11 +233,8 @@ class SupabaseClient {
         return !empty($result) ? $result[0] : null;
     }
     
-    /**
-     * Create entry
-     */
+ 
     public function createEntry($userId, $moodId, $entryText, $entryDate, $entryTime, $mediaFiles = []) {
-        // Create entry
         $entryData = [
             'user_id' => $userId,
             'mood_id' => intval($moodId),
@@ -293,10 +250,9 @@ class SupabaseClient {
             throw new Exception("Failed to create entry");
         }
         
-        // Add media files if any
+
         if (!empty($mediaFiles)) {
             foreach ($mediaFiles as $media) {
-                // Calculate file size from base64
                 $base64Length = strlen($media['base64_data']);
                 $padding = substr_count($media['base64_data'], '=');
                 $fileSize = max(1, floor(($base64Length * 3) / 4) - $padding);
@@ -314,21 +270,17 @@ class SupabaseClient {
             }
         }
         
-        // Return the created entry with relations
         return $this->getEntryById($entryId, $userId);
     }
     
-    /**
-     * Update entry
-     */
     public function updateEntry($entryId, $userId, $moodId, $entryText, $entryDate, $entryTime, $mediaFiles = []) {
-        // Verify ownership
+
         $existing = $this->getEntryById($entryId, $userId);
         if (!$existing) {
             throw new Exception("Entry not found or unauthorized");
         }
         
-        // Update entry
+
         $entryData = [
             'mood_id' => intval($moodId),
             'entry_text' => $entryText,
@@ -341,10 +293,9 @@ class SupabaseClient {
             'user_id' => $userId
         ]);
         
-        // Delete existing media files
         $this->delete('media_files', ['entry_id' => $entryId]);
         
-        // Add new media files
+
         if (!empty($mediaFiles)) {
             foreach ($mediaFiles as $media) {
                 $base64Length = strlen($media['base64_data']);
@@ -367,11 +318,9 @@ class SupabaseClient {
         return $this->getEntryById($entryId, $userId);
     }
     
-    /**
-     * Delete entry (soft delete)
-     */
+
     public function deleteEntry($entryId, $userId) {
-        // Verify ownership
+
         $existing = $this->getEntryById($entryId, $userId);
         if (!$existing) {
             throw new Exception("Entry not found or unauthorized");

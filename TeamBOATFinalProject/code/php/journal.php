@@ -1,8 +1,4 @@
 <?php
-/**
- * Journal Page
- * List all entries with search and filter capabilities
- */
 
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/SupabaseClient.php';
@@ -13,7 +9,7 @@ requireAuth();
 $client = new SupabaseClient();
 $userId = getCurrentUserId();
 
-// Get filter parameters
+
 $searchQuery = sanitizeInput($_GET['search'] ?? '');
 $selectedMood = isset($_GET['mood']) ? intval($_GET['mood']) : 0;
 $startDate = $_GET['start_date'] ?? '';
@@ -25,24 +21,21 @@ try {
     $allEntries = $client->getEntries($userId, 1000);
     $moods = $client->getMoods();
     
-    // Apply filters
     $filteredEntries = $allEntries;
     
-    // Search filter
     if (!empty($searchQuery)) {
         $filteredEntries = array_filter($filteredEntries, function($entry) use ($searchQuery) {
             return stripos($entry['entry_text'], $searchQuery) !== false;
         });
     }
     
-    // Mood filter
+
     if ($selectedMood > 0) {
         $filteredEntries = array_filter($filteredEntries, function($entry) use ($selectedMood) {
             return $entry['mood_id'] == $selectedMood;
         });
     }
     
-    // Date range filter
     if (!empty($startDate)) {
         $filteredEntries = array_filter($filteredEntries, function($entry) use ($startDate) {
             return $entry['entry_date'] >= $startDate;
@@ -54,7 +47,6 @@ try {
         });
     }
     
-    // Sort
     usort($filteredEntries, function($a, $b) use ($sortBy) {
         switch ($sortBy) {
             case 'date-asc':
@@ -160,7 +152,6 @@ include __DIR__ . '/header.php';
             </div>
         </div>
         
-        <!-- Entries List -->
         <div class="card">
             <div class="card-content">
                 <?php if (empty($filteredEntries)): ?>

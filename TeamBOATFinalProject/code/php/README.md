@@ -1,7 +1,3 @@
-# DiaryPro - PHP Version
-
-Complete PHP/HTML/CSS rewrite of the DiaryPro journal application.
-
 ## File Structure
 
 ```
@@ -32,24 +28,24 @@ php/
 
 ## Setup Instructions
 
-1. **Copy environment file:**
+1. Copy environment file:
    ```bash
    cp .env.example .env
    ```
 
-2. **Edit .env file:**
+2. Edit .env file:
    Add your Supabase URL and Anon Key:
    ```
    SUPABASE_URL=https://your-project.supabase.co
    SUPABASE_ANON_KEY=your_anon_key_here
    ```
 
-3. **Configure PHP:**
+3. Configure PHP:
    - Ensure PHP 8+ is installed
    - Enable cURL extension
    - Set proper file permissions
 
-4. **Deploy:**
+4. Deploy:
    - Upload all files to your web server
    - Ensure PHP can write to session directory
    - Configure web server to serve PHP files

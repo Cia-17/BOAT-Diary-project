@@ -1,8 +1,5 @@
 <?php
-/**
- * Insights Page
- * Analytics and statistics for journal entries
- */
+
 
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/SupabaseClient.php';
@@ -16,7 +13,7 @@ $userId = getCurrentUserId();
 try {
     $entries = $client->getEntries($userId, 1000);
     
-    // Calculate emotion statistics
+
     $moodCounts = [];
     foreach ($entries as $entry) {
         if (isset($entry['mood']['mood_name'])) {
@@ -49,12 +46,11 @@ try {
         ]
     ];
     
-    // Filter out emotions with 0%
     $emotionData = array_filter($emotionData, function($e) {
         return $e['percentage'] > 0;
     });
     
-    // Sort by percentage descending
+
     usort($emotionData, function($a, $b) {
         return $b['percentage'] - $a['percentage'];
     });
@@ -83,7 +79,6 @@ include __DIR__ . '/header.php';
         </div>
         <?php endif; ?>
         
-        <!-- Emotions Chart -->
         <?php if (!empty($emotionData)): ?>
         <div class="card" style="margin-bottom: 2rem;">
             <div class="card-content">
@@ -109,7 +104,7 @@ include __DIR__ . '/header.php';
         </div>
         <?php endif; ?>
         
-        <!-- Stats -->
+
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
             <div class="card" style="background: linear-gradient(to bottom right, var(--color-accent-yellow), var(--color-accent-orange)); border: none;">
                 <div class="card-content">
